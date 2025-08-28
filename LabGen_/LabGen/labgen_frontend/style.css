@@ -1,0 +1,53 @@
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.protocol-textarea {
+    @apply w-full p-4 bg-slate-100/70 border-2 border-slate-200 rounded-lg text-slate-700 placeholder-slate-400;
+    @apply focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all duration-300;
+    resize: vertical;
+}
+
+.generate-button {
+    @apply flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md;
+    @apply hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500;
+    @apply transform transition-all duration-200 ease-in-out;
+    @apply disabled:bg-slate-400 disabled:cursor-not-allowed;
+}
+
+.generate-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.reset-button {
+    @apply flex items-center justify-center px-4 py-2 bg-slate-200 text-slate-700 font-medium rounded-md;
+    @apply hover:bg-slate-300 active:bg-slate-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-400;
+    @apply transition-colors duration-200;
+}
+
+#status-section.hidden,
+#video-section.hidden {
+    display: none;
+}
+
+/* Simple CSS Loader */
+.loader {
+    border: 4px solid #f3f3f3; /* Light grey */
+    border-top: 4px solid #3b82f6; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#video-player {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

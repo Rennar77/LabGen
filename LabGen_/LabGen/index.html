@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LabGen AI Backend</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen">
+    <div class="text-center p-8 bg-gray-800 rounded-lg shadow-2xl max-w-lg mx-auto">
+        <h1 class="text-4xl font-bold text-cyan-400 mb-4">LabGen AI Backend Skeleton</h1>
+        <p class="text-lg text-gray-300 mb-6">
+            The FastAPI backend service is running. This skeleton provides the core API endpoints for the LabGen application.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="/docs" target="_blank" class="px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold rounded-lg shadow-md transition-transform transform hover:scale-105">
+                View API Docs (Swagger)
+            </a>
+            <a href="/redoc" target="_blank" class="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-lg shadow-md transition-transform transform hover:scale-105">
+                View ReDoc
+            </a>
+        </div>
+        <p class="text-sm text-gray-500 mt-8">
+            To start the backend, navigate to the `labgen_backend` directory and run `uvicorn app.main:app --reload`.
+        </p>
+    </div>
+</body>
+</html>
