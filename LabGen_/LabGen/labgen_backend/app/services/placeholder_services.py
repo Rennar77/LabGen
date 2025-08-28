@@ -51,10 +51,11 @@ def process_video_generation(task_id: str, tasks: dict):
         generated_assets = []
         image_paths = []
         audio_paths = []
-        for scene in storyboard.get("scenes", []):
+        
+        for scene in storyboard:  # storyboard is a list, not a dict
             scene_index = scene.get("scene_number")
-            visual_prompt = scene.get("visual_prompt")
-            narration_script = scene.get("narration")
+            visual_prompt = scene.get("visual_description")   # <-- matches your JSON
+            narration_script = scene.get("narration_script")  # <-- matches your JSON
 
             # Generate image using the selected backend
             image_path = image_generator(visual_prompt, task_id, scene_index)
@@ -63,8 +64,12 @@ def process_video_generation(task_id: str, tasks: dict):
             # Generate audio using the selected backend
             audio_path = tts_generator(narration_script, task_id, scene_index)
             print(f"Task {task_id}, Scene {scene_index}: Generated audio at {audio_path}")
-            
-            generated_assets.append({"scene": scene_index, "image": image_path, "audio": audio_path})
+
+            generated_assets.append({
+                "scene": scene_index,
+                "image": image_path,
+                "audio": audio_path
+            })
             image_paths.append(image_path)
             audio_paths.append(audio_path)
 
