@@ -1,3 +1,6 @@
+import time
+import shutil
+from pathlib import Path
 import json
 from .protocol_parser import parse_protocol
 from .storyboard_generator import generate_storyboard_from_steps
@@ -15,10 +18,13 @@ if GENERATION_BACKEND == "huggingface":
     image_generator = huggingface_image_generator.generate_image_from_prompt
     tts_generator = huggingface_tts_generator.generate_speech_from_text
     print("INFO: Using Hugging Face generation backend.")
+
 else:
     image_generator = openai_image_generator.generate_image_from_prompt
     tts_generator = openai_tts_generator.generate_speech_from_text
     print("INFO: Using OpenAI generation backend (default).")
+   
+    
 
 
 def process_video_generation(task_id: str, tasks: dict):
@@ -89,3 +95,50 @@ def process_video_generation(task_id: str, tasks: dict):
     except Exception as e:
         print(f"An error occurred during video generation for task {task_id}: {e}")
         tasks[task_id]["status"] = "FAILED"
+
+
+'''
+def process_video_generation(task_id: str, tasks: dict):
+    print(f"[DUMMY WORKER] Starting fake video generation for task: {task_id}")
+    
+    try:
+        protocol_text = tasks[task_id].get("protocol_text", "")
+        tasks[task_id]["status"] = "PROCESSING"
+
+        # Simulate processing steps
+        print(f"[DUMMY WORKER] Task {task_id}: Pretending to parse protocol...")
+        time.sleep(1)
+
+        print(f"[DUMMY WORKER] Task {task_id}: Pretending to generate storyboard...")
+        time.sleep(1)
+
+        print(f"[DUMMY WORKER] Task {task_id}: Pretending to generate assets (images/audio)...")
+        time.sleep(1)
+
+        # Create output directory
+        output_dir = Path("generated_videos")
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        # Fake final video path
+        final_video_path = output_dir / f"{task_id}.mp4"
+
+        # Copy a sample video if available, else make a dummy file
+        sample_video = Path("media") / "sample.mp4"
+        if sample_video.exists():
+            shutil.copy(sample_video, final_video_path)
+            print(f"[DUMMY WORKER] Task {task_id}: Copied sample.mp4 as output.")
+        else:
+            with open(final_video_path, "wb") as f:
+                f.write(b"\x00" * 2048)  # small dummy binary
+            print(f"[DUMMY WORKER] Task {task_id}: Created dummy video file.")
+
+        # Mark task completed
+        tasks[task_id]["status"] = "COMPLETED"
+        tasks[task_id]["file_path"] = str(final_video_path)
+
+        print(f"[DUMMY WORKER] Task {task_id}: COMPLETED ✅")
+
+    except Exception as e:
+        tasks[task_id]["status"] = "FAILED"
+        print(f"[DUMMY WORKER] Task {task_id}: FAILED ❌ Error: {e}")
+        '''

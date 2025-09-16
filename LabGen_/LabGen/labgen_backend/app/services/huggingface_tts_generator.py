@@ -3,6 +3,9 @@ from pathlib import Path
 import torch
 from transformers import AutoProcessor, BarkModel
 from scipy.io.wavfile import write as write_wav
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def generate_speech_from_text(text: str, task_id: str, scene_index: int) -> str:
     print(f"HUGGINGFACE_TTS_GEN: Generating speech for scene {scene_index}: '{text[:50]}...'")

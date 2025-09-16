@@ -1,9 +1,10 @@
 import os
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware  
 from app.api.endpoints import generation
 
-# Create directory for generated videos if it doesn't exist
+# Create directory for generated videos 
 os.makedirs("generated_videos", exist_ok=True)
 
 app = FastAPI(
@@ -12,7 +13,17 @@ app = FastAPI(
     version="1.0.0",
 )
 
+#  Add CORS middleware 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], #replace * with serever later
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # Mount the 'generated_videos' directory to serve the generated video files.
+
 # This makes files in 'generated_videos' accessible at '/generated_videos/<filename>'.
 app.mount("/generated_videos", StaticFiles(directory="generated_videos"), name="generated_videos")
 

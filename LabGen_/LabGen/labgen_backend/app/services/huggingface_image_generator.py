@@ -2,6 +2,9 @@ import os
 from pathlib import Path
 import torch
 from diffusers import StableDiffusionPipeline
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Load the model once globally (instead of reloading for every scene)
 def load_hf_pipeline():
