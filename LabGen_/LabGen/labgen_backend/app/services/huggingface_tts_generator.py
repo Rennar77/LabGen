@@ -30,8 +30,8 @@ def generate_speech_from_text(text: str, task_id: str, scene_index: int) -> str:
 
 
         # Bark can benefit from this on lower VRAM GPUs
-        if device == "cuda":
-             model.enable_offload_cpu()
+        #if device == "cuda":
+           # model.enable_offload_cpu()
 
 
         inputs = processor(text, voice_preset="v2/en_speaker_6", return_tensors="pt").to(device)

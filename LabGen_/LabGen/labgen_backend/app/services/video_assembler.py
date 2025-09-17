@@ -1,25 +1,35 @@
 import os
+import moviepy
+from moviepy.editor import ImageClip, AudioFileClip, concatenate_videoclips
 
 def assemble_video_from_assets(image_paths: list, audio_paths: list, task_id: str) -> str:
     """
-    Simulates assembling a video from image and audio assets using a tool like FFmpeg.
-    In a real implementation, this would call the FFmpeg command-line tool.
-    This placeholder creates a dummy file in the 'generated_videos' directory.
+    Assemble a video from image + audio assets using MoviePy.
     """
-    print(f"Task {task_id}: Starting video assembly.")
+    print(f"Task {task_id}: Starting REAL video assembly.")
 
     output_dir = "generated_videos"
     os.makedirs(output_dir, exist_ok=True)
-    
     output_video_path = os.path.join(output_dir, f"{task_id}.mp4")
 
-    print(f"Task {task_id}: Simulating FFmpeg call to combine {len(image_paths)} images and {len(audio_paths)} audio files.")
-    print(f"Task {task_id}: Video will be created at {output_video_path}")
+    scene_clips = []
+    for i, (img, aud) in enumerate(zip(image_paths, audio_paths)):
+        try:
+            audio_clip = AudioFileClip(aud)
+            img_clip = ImageClip(img).set_duration(audio_clip.duration)
+            scene = img_clip.set_audio(audio_clip)
+            scene_clips.append(scene)
+            print(f"Task {task_id}, Scene {i+1}: Added {img} + {aud}")
+        except Exception as e:
+            print(f"Task {task_id}, Scene {i+1}: Error processing assets -> {e}")
 
-    # Create a dummy file to represent the final video output.
-    with open(output_video_path, 'w') as f:
-        f.write(f"This is a placeholder video for task {task_id}.")
+    if scene_clips:
+        final_video = concatenate_videoclips(scene_clips, method="compose")
+        final_video.write_videofile(output_video_path, fps=24)
+        print(f"Task {task_id}: Final video saved at {output_video_path}")
+    else:
+        print(f"Task {task_id}: No clips generated, writing placeholder.")
+        with open(output_video_path, "w") as f:
+            f.write("Error: No clips generated.")
 
-    print(f"Task {task_id}: Video assembly simulation complete.")
-    
     return output_video_path
