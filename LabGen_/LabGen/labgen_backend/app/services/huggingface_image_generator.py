@@ -67,7 +67,7 @@ def generate_image_from_prompt(prompt: str, task_id: str, scene_index: int) -> s
     headers = {"Authorization": f"Bearer {HF_API_KEY}"}
 
     response = requests.post(
-        "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-2-1",
+        "https://router.huggingface.co/hf-inference/models/stabilityai/stable-diffusion-2-1",
         headers=headers,
         json=payload
     )
